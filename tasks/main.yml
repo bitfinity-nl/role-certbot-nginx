@@ -14,13 +14,7 @@
 # Source(s):
 #   - https://certbot.eff.org/instructions?ws=nginx&os=ubuntufocal
 #   - https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-22-04
-
-- name: "Remove APT certbot"
-  apt:
-    pkg:
-    - certbot
-    state: absent
-
+#
 - name: "Install APT packages"
   apt:
     pkg:
@@ -31,6 +25,14 @@
     rule: allow
     name: Nginx Full
 
+- name: "Create default www directory"
+  file:
+    path: /var/www/example.com
+    state: directory
+    owner: www-data
+    group: www-data
+    mode: 0755
+    
 - name: "Transfer Nginx templates"
   template:
     src: "{{ item.src }}"
@@ -50,6 +52,12 @@
   systemd:
     state: reloaded
     name: nginx
+
+- name: "Remove APT certbot"
+  apt:
+    pkg:
+    - certbot
+    state: absent
 
 - name: "Install SNAP modules"
   community.general.snap:
