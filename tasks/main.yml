@@ -24,7 +24,27 @@
   ufw:
     rule: allow
     name: Nginx Full
-   
+
+- name: "Transfer Nginx templates"
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - { src: 'templates/example.com.j2', dest: '/etc/nginx/site-available/example.com' }
+
+- name: "Create symlinks for Nginx"
+  ansible.builtin.file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+  with_items:
+    - { src: '/etc/nginx/site-available/example.com', dest: '/etc/nginx/site-enabled/example.com' }
+
+- name: "Reload Nginx"
+  systemd:
+    state: reloaded
+    name: apache2
+
 - name: "Install SNAP modules"
   community.general.snap:
     name:
