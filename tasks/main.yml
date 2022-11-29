@@ -20,7 +20,7 @@
     pkg:
     - nginx
     
-- name: "Configure UFW for Apache2"
+- name: "Configure UFW for Nginx"
   ufw:
     rule: allow
     name: Nginx Full
