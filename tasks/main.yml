@@ -30,7 +30,7 @@
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
   with_items:
-    - { src: 'templates/example.com.j2', dest: '/etc/nginx/site-available/example.com' }
+    - { src: 'templates/example.com.j2', dest: '/etc/nginx/sites-available/example.com' }
 
 - name: "Create symlinks for Nginx"
   ansible.builtin.file:
@@ -38,12 +38,12 @@
     dest: "{{ item.dest }}"
     state: link
   with_items:
-    - { src: '/etc/nginx/site-available/example.com', dest: '/etc/nginx/site-enabled/example.com' }
+    - { src: '/etc/nginx/sites-available/example.com', dest: '/etc/nginx/sites-enabled/example.com' }
 
 - name: "Reload Nginx"
   systemd:
     state: reloaded
-    name: apache2
+    name: nginx
 
 - name: "Install SNAP modules"
   community.general.snap:
