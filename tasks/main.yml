@@ -15,9 +15,27 @@
 #   - https://certbot.eff.org/instructions?ws=nginx&os=ubuntufocal
 #   - https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-22-04
 
+- name: "Install APT packages"
+  apt:
+    pkg:
+    - nginx
+    
+- name: "Configure UFW for Apache2"
+  ufw:
+    rule: allow
+    name: Nginx Full
+ 
+    
 - name: "Install SNAP modules"
   community.general.snap:
     name:
       - core
     classic: true   
 
+- name: "Create symlink from /snap/bin/certbot to /usr/bin/certbot"
+  ansible.builtin.file:
+    src: '/snap/bin/certbot'
+    dest: '/usr/bin/certbot'
+    state: link
+
+- name: "Install APT packages"
