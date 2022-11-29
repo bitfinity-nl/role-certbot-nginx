@@ -1,0 +1,23 @@
+---
+# Title: Nginx Certbot (Letsencrypt)
+#
+# Author: Bitfinity / L. Rutten
+# Owner: Bitfinity / L. Rutten
+#
+# File: tasks/main.yml
+#
+# Description:
+#   This taskfile contains the settings for
+#   installing nginx and certbot for generating
+#   Letsencrypt Certificate.
+#
+# Source(s):
+#   - https://certbot.eff.org/instructions?ws=nginx&os=ubuntufocal
+#   - https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-22-04
+
+- name: "Install SNAP modules"
+  community.general.snap:
+    name:
+      - core
+    classic: true   
+
