@@ -24,13 +24,12 @@
   ufw:
     rule: allow
     name: Nginx Full
- 
-    
-#- name: "Install SNAP modules"
-#  community.general.snap:
-#    name:
-#      - core
-#    classic: true   
+   
+- name: "Install SNAP modules"
+  community.general.snap:
+    name:
+      - core
+    classic: true   
 
 #- name: "Create symlink from /snap/bin/certbot to /usr/bin/certbot"
 #  ansible.builtin.file:
