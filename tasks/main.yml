@@ -39,7 +39,8 @@
     dest: "{{ item.dest }}"
   with_items:
     - { src: 'templates/example.com.j2', dest: '/etc/nginx/sites-available/example.com' }
-
+    - { src: 'templates/index.html.j2', dest: '/var/www/example.com/index.html' }
+    
 - name: "Create symlinks for Nginx"
   ansible.builtin.file:
     src: "{{ item.src }}"
@@ -47,7 +48,7 @@
     state: link
   with_items:
     - { src: '/etc/nginx/sites-available/example.com', dest: '/etc/nginx/sites-enabled/example.com' }
-
+    
 - name: "Reload Nginx"
   systemd:
     state: reloaded
