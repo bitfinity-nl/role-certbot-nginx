@@ -15,6 +15,12 @@
 #   - https://certbot.eff.org/instructions?ws=nginx&os=ubuntufocal
 #   - https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-22-04
 
+- name: "Remove APT certbot"
+  apt:
+    pkg:
+    - certbot
+    state: absent
+
 - name: "Install APT packages"
   apt:
     pkg:
@@ -49,8 +55,13 @@
   community.general.snap:
     name:
       - core
-    classic: true   
 
+- name: "Install SNAP modules"
+  community.general.snap:
+    name:
+      - certbot
+    classic: true  
+    
 - name: "Create symlink from /snap/bin/certbot to /usr/bin/certbot"
   ansible.builtin.file:
     src: '/snap/bin/certbot'
