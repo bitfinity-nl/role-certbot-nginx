@@ -27,7 +27,7 @@
 
 - name: "Create default www directory"
   file:
-    path: "/var/www/{{ nginx_server_name }}"
+    path: "/var/www/{{ certbot_servername }}"
     state: directory
     owner: www-data
     group: www-data
@@ -38,7 +38,7 @@
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
   with_items:
-    - { src: 'templates/example.com.j2', dest: '/etc/nginx/sites-available/{{ nginx_server_name }}' }
+    - { src: 'templates/example.com.j2', dest: '/etc/nginx/sites-available/{{ certbot_servername }}' }
     #- { src: 'templates/index.html.j2', dest: '/var/www/{{ nginx_server_name }}/index.html' }
     
 - name: "Create symlinks for Nginx"
@@ -47,7 +47,7 @@
     dest: "{{ item.dest }}"
     state: link
   with_items:
-    - { src: '/etc/nginx/sites-available/{{ nginx_server_name }}', dest: '/etc/nginx/sites-enabled/{{ nginx_server_name }}' }
+    - { src: '/etc/nginx/sites-available/{{ certbot_servername }}', dest: '/etc/nginx/sites-enabled/{{ certbot_servername }}' }
     
 - name: "restart Nginx"
   systemd:
@@ -77,21 +77,21 @@
     dest: '/usr/bin/certbot'
     state: link
 
-- name: "Check if path /etc/letsencrypt/live/{{ certbot_serveralias }} exist"
+- name: "Check if path /etc/letsencrypt/live/{{ certbot_servername }} exist"
   stat:
-    path: "/etc/letsencrypt/live/{{ nginx_server_name }}"
+    path: "/etc/letsencrypt/live/{{ certbot_servername }}"
   register: result
 
-- name: "Display if path /etc/letsencrypt/live/{{ certbot_serveralias }} exist"
+- name: "Display if path /etc/letsencrypt/live/{{ certbot_servername }} exist"
   debug:
     msg: "{{ result.stat.exists }}"
 
-- name: "Request letsencrypt certificate for domain {{ certbot_serveralias }} with support e-mail {{ certbot_serveradmin }}"
+- name: "Request letsencrypt certificate for domain {{ certbot_servername }} with support e-mail {{ certbot_serveradmin }}"
   # raw: certbot --agree-tos --apache -n -d {{ certbot_serveralias }} --apache -m {{ certbot_serveradmin }}
-  raw: certbot --agree-tos --nginx -n -d {{ certbot_serveralias }} --nginx -m {{ certbot_server_name }}
+  raw: certbot --agree-tos --nginx -n -d {{ certbot_server_name }} --nginx -m {{ certbot_serveralias }}
   when: result.stat.exists == false
 
-- name: "Renew Letsencrypt certificate for domain {{ certbot_serveralias }} with support e-mail {{ certbot_serveradmin }}"
+- name: "Renew Letsencrypt certificate for domain {{ certbot_servername }} with support e-mail {{ certbot_serveradmin }}"
   raw: "certbot renew"
   notify: reload_nginx
   when: result.stat.exists == true
