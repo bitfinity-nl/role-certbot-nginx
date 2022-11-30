@@ -1,5 +1,15 @@
 ---
+# Title: Nginx Certbot (Letsencrypt)
 #
+# Author: Bitfinity / L. Rutten
+# Owner: Bitfinity / L. Rutten
+#
+# File: handlers/main.yml
+#
+# Description:
+#   This handler file contains the settings for
+#   installing nginx and certbot for generating
+#   Letsencrypt Certificate.
 
 - name: "reload_nginx"
   systemd:
