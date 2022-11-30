@@ -86,12 +86,12 @@
   debug:
     msg: "{{ result.stat.exists }}"
 
-- name: "Request letsencrypt certificate for domain {{ certbot_servername }} with support e-mail {{ certbot_serveradmin }}"
-  # raw: certbot --agree-tos --apache -n -d {{ certbot_serveralias }} --apache -m {{ certbot_serveradmin }}
-  raw: "certbot --agree-tos --nginx -n -d {{ certbot_server_name }} --nginx -m {{ certbot_serveralias }}"
-  when: result.stat.exists == false
+#- name: "Request letsencrypt certificate for domain {{ certbot_servername }} with support e-mail {{ certbot_serveradmin }}"
+#  # raw: certbot --agree-tos --apache -n -d {{ certbot_serveralias }} --apache -m {{ certbot_serveradmin }}
+#  raw: "certbot --agree-tos --nginx -n -d {{ certbot_server_name }} --nginx -m {{ certbot_serveralias }}"
+#  when: result.stat.exists == false
 
-- name: "Renew Letsencrypt certificate for domain {{ certbot_servername }} with support e-mail {{ certbot_serveradmin }}"
-  raw: "certbot renew"
-  notify: reload_nginx
-  when: result.stat.exists == true
+#- name: "Renew Letsencrypt certificate for domain {{ certbot_servername }} with support e-mail {{ certbot_serveradmin }}"
+#  raw: "certbot renew"
+#  notify: reload_nginx
+#  when: result.stat.exists == true
