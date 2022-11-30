@@ -23,6 +23,6 @@
 # Comment:
 #
 certbot_servername   : 'example.com'
-certbot_serveralias  : 'www.example.com'
+#certbot_serveralias  : 'www.example.com'
 certbot_serveradmin  : 'support@example.com'
 certbot_documentroot : '/var/www/html'
