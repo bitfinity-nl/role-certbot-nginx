@@ -76,3 +76,22 @@
     src: '/snap/bin/certbot'
     dest: '/usr/bin/certbot'
     state: link
+
+- name: "Check if path /etc/letsencrypt/live/{{ certbot_serveralias }} exist"
+  stat:
+    path: "/etc/letsencrypt/live/{{ nginx_server_name }}"
+  register: result
+
+- name: "Display if path /etc/letsencrypt/live/{{ certbot_serveralias }} exist"
+  debug:
+    msg: "{{ result.stat.exists }}"
+
+- name: "Request letsencrypt certificate for domain {{ certbot_serveralias }} with support e-mail {{ certbot_serveradmin }}"
+  # raw: certbot --agree-tos --apache -n -d {{ certbot_serveralias }} --apache -m {{ certbot_serveradmin }}
+  raw: certbot --agree-tos --nginx -n -d {{ certbot_serveralias }} --nginx -m {{ certbot_server_name }}
+  when: result.stat.exists == false
+
+- name: "Renew Letsencrypt certificate for domain {{ certbot_serveralias }} with support e-mail {{ certbot_serveradmin }}"
+  raw: "certbot renew"
+  notify: reload_nginx
+  when: result.stat.exists == true
