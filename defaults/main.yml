@@ -1,4 +1,16 @@
 ---
+# Title: Nginx Certbot (Letsencrypt)
+#
+# Author: Bitfinity / L. Rutten
+# Owner: Bitfinity / L. Rutten
+#
+# File: defaults/main.yml
+#
+# Description:
+#   This defaults file contains the settings for
+#   installing nginx and certbot for generating
+#   Letsencrypt Certificate.
+#
 
 #-- Default settings: role-certbot-nginx --
 #
