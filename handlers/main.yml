@@ -14,6 +14,6 @@
 - name: "reload_nginx"
   systemd:
     state: reloaded
-    name: apache2
+    name: nginx
   
 
