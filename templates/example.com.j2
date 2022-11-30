@@ -7,9 +7,9 @@ server {
        listen 80;
        listen [::]:80;
 
-       server_name {{ nginx_server_name }};
+       server_name {{ certbot_servername }};
 
-       root /var/www/{{ nginx_server_name }};
+       root /var/www/{{ certbot_servername }};
        index index.html;
 
        location / {
