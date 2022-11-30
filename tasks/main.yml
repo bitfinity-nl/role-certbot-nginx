@@ -47,7 +47,7 @@
     dest: "{{ item.dest }}"
     state: link
   with_items:
-    - { src: '/etc/nginx/sites-available/example.com', dest: '/etc/nginx/sites-enabled/{{ nginx_server_name }}' }
+    - { src: '/etc/nginx/sites-available/{{ nginx_server_name }}', dest: '/etc/nginx/sites-enabled/{{ nginx_server_name }}' }
     
 - name: "Reload Nginx"
   systemd:
