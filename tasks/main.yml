@@ -51,7 +51,7 @@
     
 - name: "restart Nginx"
   systemd:
-    state: restart
+    state: restarted
     name: nginx
 
 - name: "Remove APT certbot"
