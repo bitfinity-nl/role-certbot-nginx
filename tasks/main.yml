@@ -33,21 +33,21 @@
     group: www-data
     mode: 0755
     
-#- name: "Transfer Nginx templates"
-#  template:
-#    src: "{{ item.src }}"
-#    dest: "{{ item.dest }}"
-#  with_items:
-#    - { src: 'templates/example.com.j2', dest: '/etc/nginx/sites-available/{{ certbot_serveralias }}' }
+- name: "Transfer Nginx templates"
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - { src: 'templates/example.com.j2', dest: '/etc/nginx/sites-available/{{ certbot_serveralias }}' }
     #- { src: 'templates/index.html.j2', dest: '/var/www/{{ nginx_server_name }}/index.html' }
     
-#- name: "Create symlinks for Nginx"
-#  ansible.builtin.file:
-#    src: "{{ item.src }}"
-#    dest: "{{ item.dest }}"
-#    state: link
-#  with_items:
-#    - { src: '/etc/nginx/sites-available/{{ certbot_serveralias }}', dest: '/etc/nginx/sites-enabled/{{ certbot_serveralias }}' }
+- name: "Create symlinks for Nginx"
+  ansible.builtin.file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+  with_items:
+    - { src: '/etc/nginx/sites-available/{{ certbot_serveralias }}', dest: '/etc/nginx/sites-enabled/{{ certbot_serveralias }}' }
     
 - name: "restart Nginx"
   systemd:
