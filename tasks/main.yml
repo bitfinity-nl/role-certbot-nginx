@@ -98,7 +98,6 @@
 - name: "Remove symlinks for Nginx Letsencrypt request link "
   ansible.builtin.file:
     path: "/etc/nginx/sites-enabled/{{ certbot_serveralias }}"
-    dest: "{{ item.dest }}"
     state: absent
 
    
